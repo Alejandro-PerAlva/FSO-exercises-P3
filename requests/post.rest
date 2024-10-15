@@ -5,3 +5,20 @@ content-type: application/json
     "name": "Alejandro Pérez",
     "number": "123 456 789"
 }
+
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "Arto Hellas",
+    "number": "123 456 789"
+}
+
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "number": "123 456 789"
+}
