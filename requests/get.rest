@@ -1,10 +1,10 @@
-GET http://localhost:3001/api/persons
+GET https://fso-exercises-p3.fly.dev/api/persons
 
 ###
-GET http://localhost:3001/api/persons/1
+GET https://fso-exercises-p3.fly.dev/api/persons/1
 
 ###
-GET http://localhost:3001/api/persons/32
+GET https://fso-exercises-p3.fly.dev/api/persons/32
 
 ###
-GET http://localhost:3001/info
+GET https://fso-exercises-p3.fly.dev/info
