@@ -69,10 +69,6 @@ app.get('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-const generateId = () => {
-    return Math.floor(Math.random() * 1000000)
-  }
-  
   app.post('/api/persons', (request, response) => {
     const body = request.body
 
