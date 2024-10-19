@@ -73,34 +73,34 @@ const generateId = () => {
     return Math.floor(Math.random() * 1000000)
   }
   
-app.post('/api/persons', (request, response) => {
+  app.post('/api/persons', (request, response) => {
     const body = request.body
-    console.log(body);
-    
+
     if (!body.name || !body.number) {
         return response.status(400).json({ 
             error: 'name or number is missing' 
         })
-      }
-    /*
-    const nameExists = persons.some(person => 
-        person.name === body.name
-    )
-      if (nameExists) {
-        return response.status(400).json({ 
-            error: 'name must be unique' 
+    }
+
+    Person.findOne({ name: body.name })
+        .then(existingPerson => {
+            if (existingPerson) {
+                return Person.findByIdAndUpdate(existingPerson._id, { number: body.number }, { new: true })
+            }
+            const person = new Person({
+                name: body.name,
+                number: body.number
+            });
+            return person.save()
         })
-      }
-    */
-    const person = new Person({
-      name: body.name,
-      number: body.number
-    })
-  
-    person.save().then(savedPerson => {
-      response.json(savedPerson)
-    })
-  })
+        .then(savedPerson => {
+            response.json(savedPerson)
+        })
+        .catch(error => {
+            console.error(error)
+            response.status(500).send({ error })
+        });
+})
 
   app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)
@@ -109,6 +109,23 @@ app.post('/api/persons', (request, response) => {
       })
       .catch(error => next(error))
   })
+
+  app.put('/api/persons/:id', (request, response, next) => {
+    const id = request.params.id
+    const body = request.body
+
+    const person = {
+      name: body.name,
+      number: body.number
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person, { new: true })
+        .then(updatedPerson => {
+          response.json(updatedPerson)
+        })
+        .catch(error => next(error))
+})
+
 
   const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
