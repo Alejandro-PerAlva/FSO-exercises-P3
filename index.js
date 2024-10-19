@@ -90,8 +90,7 @@ app.post('/api/persons', (request, response) => {
             error: 'name or number is missing' 
         })
       }
-    
-      /*
+    /*
     const nameExists = persons.some(person => 
         person.name === body.name
     )
@@ -100,7 +99,6 @@ app.post('/api/persons', (request, response) => {
             error: 'name must be unique' 
         })
       }*/
-  
     const person = new Person({
       name: body.name,
       number: body.number
