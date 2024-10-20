@@ -86,7 +86,7 @@ app.get('/api/persons/:id', (request, response, next) => {
             const person = new Person({
                 name: body.name,
                 number: body.number
-            });
+            })
             return person.save()
         })
         .then(savedPerson => {
